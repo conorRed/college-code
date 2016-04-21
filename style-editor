@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+
+<head><script src = "jquery-1.12.3.min.js"></script>
+<script>
+var clicked = false; //initilise to false
+			var fontFamily; //get computed style needed a specific style value so each one is a variable 
+			var fontSize;
+			var color;
+			var backgroundColor;
+			
+			function clicked_ (id) {
+				if(!clicked){
+					source = document.getElementById(id);
+					color = window.getComputedStyle(source, null).getPropertyValue("color");//window.getComputedStyle in order to get the values at a certain time
+					backgroundColor = window.getComputedStyle(source, null).getPropertyValue("background-color"); // values will be changing
+					fontFamily = window.getComputedStyle(source, null).getPropertyValue("font-family");	
+					fontSize = window.getComputedStyle(source, null).getPropertyValue("font-size");	
+					clicked = true;// now the next element will not be the source
+				}
+				else {
+					document.getElementById(id).style.color = color;//assigning source values to new element
+					document.getElementById(id).style.backgroundColor = backgroundColor;
+					document.getElementById(id).style.fontFamily = fontFamily;
+					document.getElementById(id).style.fontSize = fontSize; 
+					clicked = false;// going back to the start
+				}
+			}
+			$(document).ready(function() {  //function to create style templates
+			$('#table').append("<table id = 'table'></table>");// append to existing element
+			$('#table').append("<td id = 'td_'></td>");// creating table division's
+			$('#table').css({"width":"75%"});
+				$("#td_").css({"text-align":"center","width":"50%","background-color":"#d80000","color":"#3399FF","font-family":"serif","font-size":"100%"}); 
+				$("#td_").text("TEXT");
+				$("#td_").on("click", function(){clicked_(this.id);});
+			$('#table').append("<td id = 'td_1'></td>");
+				$("#td_1").css({"text-align":"center","width":"25%","height":"100","background-color":"#FF00FF","color":"#ffffff", "font-family":"Courier New","font-size":"100%"});
+				$("#td_1").text("TEXT");
+				$("#td_1").on("click", function(){clicked_(this.id);});
+			$('#table').append("<td id = 'td_2'></td><td id = 'td_3'></td>");
+				$("#td_2").css({"text-align":"center","width":"25%","background-color":"#FFFF00","color":"#ff0d00","font-family":"comic sans","font-size":"30%"});
+				$("#td_2").on("click", function(){clicked_(this.id);});
+				$("#td_2").text("TEXT");
+			$("#td_3").css({"text-align":"center","width":"25%","background-color":"#4d9000","color":"#FF00FF","font-family":"lucida console","font-size":"150px"});
+			$("#td_3").on("click", function(){clicked_(this.id);});
+			$("#td_3").text("TEXT");
+
+			
+
+
+			});
+</script></head>
+
+<body>
+<div id = "div1" onClick = "clicked_(this.id)" style="margin:5px; width:50%; color:#004d99; background-color:#990000; font-family:verdana; font-size:300%;">Text Box</div>
+<div id = "div2" onClick = "clicked_(this.id)" style = "margin: 20px;width: 75%;background-color: yellow;font-family: arial; font-style: italic;" >Text Box</div>
+<div id = "div3" onClick = "clicked_(this.id)" style = "margin: 20px;width: 75%;background-color: #3399ff;font-family: arial; font-style: italic;" >Text Box</div>
+<div id = "div4" onClick = "clicked_(this.id)" style = "margin: 100px;width: 15%;background-color: #330033;font-family: arial; font-style: italic;" >Text Box</div>
+<div id = "div5" onClick = "clicked_(this.id)" style = "float: right;margin: 20px;width: 75%;background-color: yellow;font-family: serif;" >Text Box</div>
+<div id = "div6" onClick = "clicked_(this.id)" style = "margin: 20px;width: 75%;height = '30';background-color: blue;font-family: arial; font-style: italic;" >Text Box</div>
+<table id = 'table'></table>
+</body>
